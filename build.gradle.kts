@@ -24,6 +24,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.assertj:assertj-core:3.25.1")
+	testImplementation("io.mockk:mockk:1.13.10")
 }
 
 tasks.withType<KotlinCompile> {

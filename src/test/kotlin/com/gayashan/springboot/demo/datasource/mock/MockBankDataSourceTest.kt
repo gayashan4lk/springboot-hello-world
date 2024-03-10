@@ -1,7 +1,6 @@
 package com.gayashan.springboot.demo.datasource.mock
 
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Assertions.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class MockBankDataSourceTest {
@@ -13,10 +12,11 @@ class MockBankDataSourceTest {
         // given
 
         // when
-        val banks = mockDataSource.getBanks()
+        val banks = mockDataSource.retrieveBanks()
 
         // then
-        assertNotNull(banks)
+        assertThat(banks).isNotNull()
+
     }
 
     @Test
@@ -24,9 +24,22 @@ class MockBankDataSourceTest {
         // given
 
         // when
-        val banks = mockDataSource.getBanks()
+        val banks = mockDataSource.retrieveBanks()
 
         // then
-        assertTrue(banks.isNotEmpty())
+        assertThat(banks.size).isGreaterThan(0)
+    }
+
+    @Test
+    fun `should provide mock data`() {
+        // given
+
+        // when
+        val banks = mockDataSource.retrieveBanks()
+
+        // then
+        assertThat(banks).allMatch { it.accountNumber.isNotBlank() }
+        assertThat(banks).anyMatch { it.trust != 0.0 }
+        assertThat(banks).anyMatch { it.transactionFee != 0 }
     }
 }
